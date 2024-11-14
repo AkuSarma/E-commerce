@@ -93,7 +93,7 @@ CLIENT_URL=http://localhost:3000
 
 ## Usage
 
-1. User Registration & Login
+1. User Registration & Logins
 Register as a new user or log in with existing credentials.
 Access features like cart management and order history once logged in.
 2. Product Catalog
