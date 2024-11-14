@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import  { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+import Dashboard from './components/Dashboard';
+import Projects from './components/Projects';
+import Teams from './components/Teams';
+import Analytics from './components/Analytics';
+import Messages from './components/Messages';
+import Integrations from './components/Integrations';
+import ProductGrid from './components/ProductGrid';
+import CartPage from './components/CartPage';
+import { CartProvider } from './context/CartContext';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentView, setCurrentView] = useState('dashboard');
+
+  const renderView = () => {
+    switch (currentView) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'projects':
+        return <Projects />;
+      case 'teams':
+        return <Teams />;
+      case 'analytics':
+        return <Analytics />;
+      case 'messages':
+        return <Messages />;
+      case 'integrations':
+        return <Integrations />;
+      case 'products':
+        return <ProductGrid />;
+      case 'cart':
+        return <CartPage />;
+      default:
+        return <Dashboard />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <CartProvider>
+      <div className="flex h-screen bg-gray-50">
+        <Sidebar onNavigate={setCurrentView} currentView={currentView} />
+        <div className="flex-1 flex flex-col">
+          <Navbar onNavigate={setCurrentView} />
+          <main className="flex-1 overflow-y-auto">
+            {renderView()}
+          </main>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;
