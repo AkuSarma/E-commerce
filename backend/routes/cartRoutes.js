@@ -1,6 +1,7 @@
 import { Router } from "express";
+import { getCart, addToCart, updateCartItem, removeCartItem, clearCart } from "../controllers/cartController.js";
+
 const router = Router();
-import { getCart, addToCart, updateCartItem, removeCartItem, clearCart } from "../controllers/cartController";
 
 // Protected routes
 router.get("/", getCart); // Fetch the user's cart

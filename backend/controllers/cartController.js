@@ -1,10 +1,10 @@
-import Cart from "../models/Cart";
-import Product from "../models/Product";
+import Cart from "../models/Cart.js";
+import Product from "../models/Product.js";
 
 // @desc    Get the cart for the current user
 // @route   GET /api/cart
 // @access  Protected
-const getCart = async (req, res) => {
+export const getCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id }).populate(
       "items.product"
@@ -21,7 +21,7 @@ const getCart = async (req, res) => {
 // @desc    Add an item to the cart
 // @route   POST /api/cart/add
 // @access  Protected
-const addToCart = async (req, res) => {
+export const addToCart = async (req, res) => {
   const { productId, quantity } = req.body;
 
   try {
@@ -61,7 +61,7 @@ const addToCart = async (req, res) => {
 // @desc    Update the quantity of a cart item
 // @route   PUT /api/cart/update/:itemId
 // @access  Protected
-const updateCartItem = async (req, res) => {
+export const updateCartItem = async (req, res) => {
   const { quantity } = req.body;
 
   try {
@@ -93,7 +93,7 @@ const updateCartItem = async (req, res) => {
 // @desc    Remove an item from the cart
 // @route   DELETE /api/cart/remove/:itemId
 // @access  Protected
-const removeCartItem = async (req, res) => {
+export const removeCartItem = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });
 
@@ -123,7 +123,7 @@ const removeCartItem = async (req, res) => {
 // @desc    Clear the cart
 // @route   DELETE /api/cart/clear
 // @access  Protected
-const clearCart = async (req, res) => {
+export const clearCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id });
 
@@ -139,12 +139,4 @@ const clearCart = async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: "Error clearing cart", error });
   }
-};
-
-export default {
-  getCart,
-  addToCart,
-  updateCartItem,
-  removeCartItem,
-  clearCart,
 };
