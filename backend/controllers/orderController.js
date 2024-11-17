@@ -1,9 +1,9 @@
-import Order from "../models/Order";
+import Order from "../models/Order.js";
 
 // @desc    Create a new order
 // @route   POST /api/orders
 // @access  Protected
-const createOrder = async (req, res) => {
+export const createOrder = async (req, res) => {
   const {
     orderItems,
     shippingAddress,
@@ -40,7 +40,7 @@ const createOrder = async (req, res) => {
 // @desc    Get order by ID
 // @route   GET /api/orders/:id
 // @access  Protected
-const getOrderById = async (req, res) => {
+export const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate(
       "user",
@@ -59,7 +59,7 @@ const getOrderById = async (req, res) => {
 // @desc    Get logged-in user's orders
 // @route   GET /api/orders
 // @access  Protected
-const getUserOrders = async (req, res) => {
+export const getUserOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id });
     res.status(200).json(orders);
@@ -71,7 +71,7 @@ const getUserOrders = async (req, res) => {
 // @desc    Update order to paid
 // @route   PUT /api/orders/:id/pay
 // @access  Protected
-const updateOrderToPaid = async (req, res) => {
+export const updateOrderToPaid = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
 
@@ -98,7 +98,7 @@ const updateOrderToPaid = async (req, res) => {
 // @desc    Update order to delivered
 // @route   PUT /api/orders/:id/deliver
 // @access  Admin
-const updateOrderToDelivered = async (req, res) => {
+export const updateOrderToDelivered = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
 
@@ -116,12 +116,4 @@ const updateOrderToDelivered = async (req, res) => {
       .status(500)
       .json({ message: "Error updating order to delivered", error });
   }
-};
-
-export default {
-  createOrder,
-  getOrderById,
-  getUserOrders,
-  updateOrderToPaid,
-  updateOrderToDelivered,
 };

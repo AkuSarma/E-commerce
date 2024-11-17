@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import { createOrder, getOrderById, getUserOrders, updateOrderToPaid, updateOrderToDelivered } from "../controllers/orderController";
+import { createOrder, getOrderById, getUserOrders, updateOrderToPaid, updateOrderToDelivered } from "../controllers/orderController.js";
 
 // Protected routes
 router.post("/", createOrder); // Create a new order
