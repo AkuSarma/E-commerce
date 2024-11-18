@@ -10,9 +10,15 @@ import Integrations from './components/Integrations';
 import ProductGrid from './components/ProductGrid';
 import CartPage from './components/CartPage';
 import { CartProvider } from './context/CartContext';
+import LoginPage from './auth/LoginPage';
+import SignupPage from './auth/SignupPage';
 
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSignup, setIsSignup] = useState(false);
+
+
 
   const renderView = () => {
     switch (currentView) {
@@ -36,6 +42,15 @@ function App() {
         return <Dashboard />;
     }
   };
+
+       // Render the login page if not logged in
+   if (!isLoggedIn) {
+    if (isSignup) {
+      return <SignupPage onNavigateToLogin={() => setIsSignup(false)} />;
+    }
+    return <LoginPage onLogin={() => setIsLoggedIn(true)} onNavigateToSignup={() => setIsSignup(true)} />;
+  }
+
 
   return (
     <CartProvider>
